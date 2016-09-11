@@ -10,6 +10,10 @@ chmod -R g+w /opt/mattermost
 config=/opt/mattermost/config/config.json
 echo -ne "Configure database connection..."
 
+POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-`generate_random_text`}
+DB_HOST=${DB_HOST:-db}
+DB_PORT_5432_TCP_PORT=${DB_PORT_5432_TCP_PORT:-5432}
+
 if [ ! -f $config ]
 then
   cp /config.template.json $config

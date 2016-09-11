@@ -15,7 +15,7 @@ RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/dow
  && rm /usr/local/bin/gosu.asc \
  && chmod +x /usr/local/bin/gosu
 
-RUN rm /mattermost/config/config.json
+RUN rm /opt/mattermost/config/config.json
 COPY config.template.json /
 
 COPY docker-entrypoint.sh /entrypoint.sh

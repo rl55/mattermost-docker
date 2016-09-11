@@ -1,25 +1,30 @@
-db:
-  image: mattermost/mattermost-prod-db
-  volumes:
-    - ./volumes/db/var/lib/postgresql/data:/var/lib/postgresql/data
-  environment:
-    - POSTGRES_PASSWORD
-  # uncomment the following to enable backup
-  #environment:
-  #  - AWS_ACCESS_KEY_ID=XXXX
-  #  - AWS_SECRET_ACCESS_KEY=XXXX
-  #  - WALE_S3_PREFIX=s3://BUCKET_NAME/PATH
-  #  - AWS_REGION=us-east-1
-app:
-  image: mattermost/mattermost-prod-app
-  links:
-    - db
-  volumes:
-    - ./volumes/app/mattermost/config:/opt/mattermost/config
-    - ./volumes/app/mattermost/data:/opt/mattermost/data
-  environment:
-    - POSTGRES_PASSWORD
-web:
-  image: mattermost/mattermost-prod-web
-  links:
-    - app
+version: "2"
+services:
+  db:
+    build: db
+    volumes:
+      - ./volumes/db/var/lib/postgresql/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD
+    # uncomment the following to enable backup
+    #environment:
+    #  - AWS_ACCESS_KEY_ID=XXXX
+    #  - AWS_SECRET_ACCESS_KEY=XXXX
+    #  - WALE_S3_PREFIX=s3://BUCKET_NAME/PATH
+    #  - AWS_REGION=us-east-1
+  app:
+    build: app
+    links:
+      - db
+    volumes:
+      - ./volumes/app/mattermost/config:/opt/mattermost/config
+      - ./volumes/app/mattermost/data:/opt/mattermost/data
+    environment:
+      - POSTGRES_PASSWORD
+  web:
+    build: web
+    links:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
