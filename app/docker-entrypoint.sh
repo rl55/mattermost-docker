@@ -1,6 +1,6 @@
 #!/bin/bash -eux
 
-generate_salt() {
+generate_random_text() {
   cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 48 | head -n 1
 }
 
@@ -25,7 +25,7 @@ then
     ChangeAtRestEncryptKey
   do
     echo "Generating and setting salt for '$key'..."
-    sed -Ei "s/$key/`generate_salt`/" $config
+    sed -Ei "s/$key/`generate_random_text`/" $config
   done
   echo OK
 else
