@@ -4,9 +4,6 @@ generate_random_text() {
   cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 48 | head -n 1
 }
 
-chown -R mattermost:mattermost /opt/mattermost
-chmod -R g+w /opt/mattermost
-
 config=/opt/mattermost/config/config.json
 echo -ne "Configure database connection..."
 
@@ -40,4 +37,4 @@ sleep 1
 
 echo "Starting platform"
 cd /opt/mattermost/bin
-gosu mattermost ./platform $*
+./platform $*
