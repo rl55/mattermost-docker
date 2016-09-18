@@ -1,4 +1,6 @@
-Dockerfiles for Mattermost in production
+Dockerfiles for Mattermost in production fine tuned for dc/os
+
+Supports persistent data for portgres and external volumes for the mattermost data, so in case you wanted to move mattermost to another cluster or machine the db and file data would be safe.
 
 See [README.aws.md](./README.aws.md) if you want to install it on AWS Elastic Beanstalk.
 
