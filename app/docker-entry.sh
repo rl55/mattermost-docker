@@ -8,9 +8,14 @@ MM_PASSWORD=${MM_PASSWORD:-mmuser_password}
 MM_DBNAME=${MM_DBNAME:-mattermost}
 echo -ne "Configure database connection..."
 
-if [ $DB_ADAPTER="postgres" and $DB_PORT=""]
+if [ $DB_ADAPTER -eq "postgres" -a $DB_PORT -eq ""]
 then
-$DB_PORT="5432"
+    $DB_PORT="5432"
+else
+    if [$DB_ADAPTER -eq "mysql" -a $DB_PORT -eq ""]
+    then
+        $DB_PORT="3306"
+    fi
 fi
 
 if [ ! -f $config ]
