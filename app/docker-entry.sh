@@ -1,21 +1,22 @@
 #!/bin/bash
 config=/mattermost/config/config.json
-DB_ADAPTER=${DB_ADAPTER:-postgres}
+DB_ADAPTER=${DB_ADAPTER:-mysql}
 DB_HOST=${DB_HOST:-db}
-DB_PORT=${DB_PORT:-5432}
+DB_PORT=${DB_PORT:-3306}
 MM_USERNAME=${MM_USERNAME:-mmuser}
 MM_PASSWORD=${MM_PASSWORD:-mmuser_password}
 MM_DBNAME=${MM_DBNAME:-mattermost}
 echo -ne "Configure database connection..."
 
-if [ $DB_ADAPTER="mysql" and $DB_PORT=""]
+if [ $DB_ADAPTER="postgres" and $DB_PORT=""]
 then
-$DB_PORT="3306"
+$DB_PORT="5432"
 fi
 
 if [ ! -f $config ]
 then
     cp /config.template.json $config
+    sed -Ei "s/DB_ADAPTER/$DB_ADAPTER/" $config
     sed -Ei "s/DB_HOST/$DB_HOST/" $config
     sed -Ei "s/DB_PORT/$DB_PORT/" $config
     sed -Ei "s/MM_USERNAME/$MM_USERNAME/" $config
