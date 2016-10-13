@@ -1,7 +1,7 @@
 db:
   build: db
   volumes:
-    - ./volumes/db/var/lib/postgresql/data:/var/lib/postgresql/data
+#    - ./volumes/db/var/lib/postgresql/data:/var/lib/postgresql/data
     - /etc/localtime:/etc/localtime:ro
   # uncomment the following to enable backup
   #environment:
