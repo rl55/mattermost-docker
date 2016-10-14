@@ -11,9 +11,9 @@ db:
   #  - WALE_S3_PREFIX=s3://BUCKET_NAME/PATH
   #  - AWS_REGION=us-east-1
 app:
-#  build: app
-#  links:
-#    - db:db
+  build: app
+  links:
+    - db:db
   volumes:
     - /mnt/nfs/data/apps/mattermost/config:/mattermost/config:rw
     - /mnt/nfs/data/apps/mattermost/data:/mattermost/data:rw
