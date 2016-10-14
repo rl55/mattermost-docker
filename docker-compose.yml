@@ -1,8 +1,9 @@
 db:
   build: db
   volumes:
+    - /mnt/nfs/data/pgdata:/var/lib/postgresql/data
 #    - ./volumes/db/var/lib/postgresql/data:/var/lib/postgresql/data
-    - /etc/localtime:/etc/localtime:ro
+#    - /etc/localtime:/etc/localtime:ro
   # uncomment the following to enable backup
   #environment:
   #  - AWS_ACCESS_KEY_ID=XXXX
@@ -10,12 +11,12 @@ db:
   #  - WALE_S3_PREFIX=s3://BUCKET_NAME/PATH
   #  - AWS_REGION=us-east-1
 app:
-  build: app
-  links:
-    - db:db
+#  build: app
+#  links:
+#    - db:db
   volumes:
-    - ./volumes/app/mattermost/config:/mattermost/config:rw
-    - ./volumes/app/mattermost/data:/mattermost/data:rw
+    - /mnt/nfs/data/apps/mattermost/config:/mattermost/config:rw
+    - /mnt/nfs/data/apps/mattermost/data:/mattermost/data:rw
     - /etc/localtime:/etc/localtime:ro
 web:
   build: web
@@ -26,7 +27,7 @@ web:
     - app:app
   volumes:
       # This directory must have cert files
-    - ./volumes/web/cert:/cert:ro
+    - /mnt/nfs/data/web/certs:/cert:ro
     - /etc/localtime:/etc/localtime:ro
   environment:
     - MATTERMOST_ENABLE_SSL=false
